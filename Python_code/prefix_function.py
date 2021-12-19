@@ -12,5 +12,5 @@ def prefix_function(string: str) -> list:
 
 
 if __name__ == "__main__":
-    test = "ababaababab"
+    test = "abc" * 3
     print(prefix_function(test))
