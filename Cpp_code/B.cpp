@@ -1,49 +1,27 @@
-#include <iostream>
-#include <string>
+# include <bits/stdc++.h>
 using namespace std;
-
-int start, finish, length;
-string prefix, sub;
-
-int max_power_prefix(string line) {
-    length = (int) line.size();
-
-    // cout << "Here " <<line.substr(0, 1) << "  " << line.substr(1, 2) << endl;
-    for (int i = 1; i < length; i++) {
-        prefix = line.substr(0, i);
-        cout << prefix << endl;
-        start = i;
-        finish = 2 * i - 1;
-        cout << start << " " << finish << endl;
-
-        // sub = line.substr(start, finish);
-        while (finish < length) {
-            
-            cout << "LOOP " <<start << " " << finish << endl;
-            sub = line.substr(start, finish);
-            int sub_len = (int) sub.size();
-            if (sub_len != i) {
-                sub = line.substr(start, finish - 1);
-            }
-
-            cout << " SUB = " << sub << endl;
-            if (prefix != sub) break;
-            start += i;
-            finish += i;
+string str;
+int max_power(string str) {
+    int i, l, r, res = 1;
+    int n = (int) str.length();
+    vector<int> z(n, 0);
+    for (i = 1, l = 0, r = 0; i < n; i++) {
+        if (i <= r) z[i] = min(r - i + 1, z[i - l]);
+        while (i + z[i] < n && str[z[i]] == str[i + z[i]]) z[i]++;
+        if (i + z[i] - 1 > r) l = i, r = i + z[i] - 1;
+        if (i + z[i] == n && n % i == 0) {
+            if (n / i > res) res = (int) n / i;
         }
-        cout << start << " " << finish << endl;
-        sub = line.substr(start, finish);
-        if (finish == length - 1 && prefix == sub)
-            return length / i;
     }
-    return 1;
+    return res;
 }
 
-
 int main() {
-    string test;
-    while (getline(cin, test)) {
-        cout << max_power_prefix(test) << endl;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    while(getline(cin, str)) {
+        cout << max_power(str) << "\n";
     }
     return 0;
 }

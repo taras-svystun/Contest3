@@ -13,24 +13,19 @@ def prefix_to_z(array: list, length: int) -> list:
             converted[j + 1] = converted[1] - j
             j += 1
 
-    k = converted[1] + 1
-    while k < length - 1:
+    for i in range(converted[1] + 1, i < length - 1):
+        helper = i
+        if converted[i] and not converted[i + 1]:
+            j = 1
+            while j < converted[i] and converted[i + j] <= converted[j]:
+                converted[i + j] = min(converted[j], converted[i] - j)
+                helper = i + j
+                j += 1
+            if helper - k:
+                k = helper
+            else:
+                k += 1
 
-        helper = k
-        if converted[k] and not converted[k + 1]:
-            l = 1
-
-            while l < converted[k] and converted[k + l] <= converted[l]:
-                converted[k + l] = min(
-                    converted[l],
-                    converted[k] - l
-                )
-                l += 1
-        if helper - k:
-            k = helper
-        else:
-            k += 1
-    
     return converted
 
 
